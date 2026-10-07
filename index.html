@@ -249,13 +249,13 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
   </div>
   <div class="grid4">
     <div class="tile"><span class="eyebrow">01</span><strong>Start from the audit</strong><p>The lab begins once the account audit is done. Its findings set the store type, the channels and the traffic in the diagnostic below, and decide which rounds can run.</p></div>
-    <div class="tile"><span class="eyebrow">02</span><strong>Find the term that moves</strong><p>Net revenue is the product of five terms. The ad lab works on sessions. This lab works on the other four, one phase each, so every experiment names the term it is meant to move.</p></div>
+    <div class="tile"><span class="eyebrow">02</span><strong>Find the term that moves</strong><p>Net revenue is the product of five terms. Acquisition in paid social and Google Ads works on sessions. This lab works on the other four, one phase each, so every experiment names the term it is meant to move.</p></div>
     <div class="tile"><span class="eyebrow">03</span><strong>Pick the lever, then build the asset</strong><p>Every experiment pairs one psychological lever with two emotional triggers and a concrete asset: a product page block, a cart message, an email. The asset follows the lever, so each cell tests a separate idea.</p></div>
     <div class="tile"><span class="eyebrow">04</span><strong>Test one variable at a time</strong><p>Each round has one variable, one primary read and net revenue after returns as the guardrail. The traffic answer in the diagnostic decides whether a round runs as an A/B test, a holdout or a before and after read.</p></div>
   </div>
   <div class="eq" role="group" aria-label="Revenue equation">
     <div class="eq-row">
-      <div class="term ext"><span class="t">New visitor sessions</span><span class="ph">Ad lab</span></div>
+      <div class="term ext"><span class="t">New visitor sessions</span><span class="ph">Acquisition: paid social and Google Ads</span></div>
       <span class="op" aria-hidden="true">×</span>
       <div class="term"><span class="t">First order conversion</span><span class="ph">Convert</span></div>
       <span class="op" aria-hidden="true">×</span>
@@ -339,7 +339,7 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
   </div>
 </section>
 
-<footer>Growth lab by Simplificate. Acquisition experiments live in the ad lab, which covers the sessions term of the same equation.</footer>
+<footer>Growth lab by Simplificate. Acquisition sits outside this lab. Paid social runs in the ad lab, and Google Ads picks up the winners noted on each round.</footer>
 </div>
 
 <script>
@@ -358,8 +358,8 @@ var TYPES={
 var ORDER=["rep","fit","con","gift"];
 var PW={rep:{convert:2,order:2,keep:1,back:3},fit:{convert:2,order:1,keep:3,back:1},con:{convert:3,order:1,keep:2,back:1},gift:{convert:2,order:3,keep:1,back:2}};
 var TRAFFIC=[{k:"low",n:"Under 10,000"},{k:"mid",n:"10,000 to 50,000"},{k:"high",n:"Over 50,000"}];
-var CHANS=[{k:"email",n:"Email list"},{k:"post",n:"Editable post purchase page"},{k:"sms",n:"SMS with consent"},{k:"paid",n:"Paid social"}];
-var CHNAME={email:"Email list",post:"Editable post purchase page",sms:"SMS",paid:"Paid social"};
+var CHANS=[{k:"email",n:"Email list"},{k:"post",n:"Editable post purchase page"},{k:"sms",n:"SMS with consent"},{k:"paid",n:"Paid social"},{k:"search",n:"Google Ads: Search, Shopping and Performance Max"}];
+var CHNAME={email:"Email list",post:"Editable post purchase page",sms:"SMS",paid:"Paid social",search:"Google Ads"};
 
 var PHASES=[
   {id:"convert",n:"Convert",term:"First order conversion",job:"Turn a product page visit into a paid order.",
@@ -374,19 +374,21 @@ var PHASES=[
 
 var ROUNDS=[
   {n:1,ph:"convert",v:"Which proof sits next to the price on the product page",ch:"Site",read:"Add to cart rate",guard:"Order conversion rate",w:["con","fit"],surface:"pdp",
-   hold:"Held constant: page layout, product, photography and price. Only the proof block around the price and the button changes."},
+   hold:"Held constant: page layout, product, photography and price. Only the proof block around the price and the button changes.",
+   follow:{search:"Move the winning proof into Search ad copy, and through the Merchant Center feed into Shopping and Performance Max: product ratings and shipping and returns details."}},
   {n:2,ph:"convert",v:"What removes hesitation at the payment step",ch:"Site",read:"Checkout completion rate",guard:"Payment errors and support contacts",w:["rep","fit","con","gift"],surface:"checkout",
    hold:"Held constant: checkout fields, order summary and delivery cost. One element is added at the payment step."},
   {n:3,ph:"order",v:"Offer structure",ch:"Site",read:"Average order value",guard:"Conversion rate and margin per order",w:["gift","rep"],surface:"cart",
    hold:"Held constant: the product range and a comparable saving per order, around €5 to €6. Only the structure of the offer changes, and each visitor sees one structure.",
-   follow:{paid:"The winning offer becomes the offer round in the ad lab, run as a Meta A/B test."}},
+   follow:{paid:"The winning offer becomes the offer round in the ad lab, run as a Meta A/B test.",search:"Run the winning offer as a Merchant Center promotion, which shows in Shopping and Performance Max."}},
   {n:4,ph:"order",v:"Where the add on appears",ch:"Site, post purchase, email",read:"Attach rate",guard:"Checkout completion rate",w:["rep","gift"],surface:"addon",
    hold:"Held constant: the same add on product at the same price. Only the moment it is offered changes. Visitors are split into four groups, a control and one per placement, so nobody sees the offer twice."},
   {n:5,ph:"keep",v:"Second message in the abandoned checkout flow",ch:"Email",read:"Recovered revenue per abandoned checkout",guard:"Unsubscribe rate and discount cost",w:["con","fit"],surface:"abandon",
    hold:"Held constant: the first message, a plain reminder sent to every cell, plus channel and send times. Only the second message changes. A holdout receives no messages.",
-   follow:{sms:"Run the winning message by SMS as a second step for buyers with consent.",paid:"Retarget non openers with the winning message in a Story ad."}},
+   follow:{sms:"Run the winning message by SMS as a second step for buyers with consent.",paid:"Retarget non openers with the winning message in a Story ad.",search:"Add checkout abandoners as a remarketing list for Search and an audience signal for Performance Max."}},
   {n:6,ph:"keep",v:"What prevents an avoidable return",ch:"Site, email",read:"Return rate per order",guard:"Conversion rate",w:["fit"],surface:"pdp",
-   hold:"Held constant: the return policy itself. The round changes guidance and process, never the terms. Visitors are split at the start so each buyer meets one version. Read once the return window has closed."},
+   hold:"Held constant: the return policy itself. The round changes guidance and process, never the terms. Visitors are split at the start so each buyer meets one version. Read once the return window has closed.",
+   follow:{search:"Report returns to Google Ads as conversion adjustments, so Shopping and Performance Max bid on kept revenue."}},
   {n:7,ph:"back",v:"What prompts the second order",ch:"Email",read:"Repeat purchase rate within 90 days",guard:"Unsubscribe rate",w:["rep","gift"],surface:"customers",
    hold:"Held constant: channel, sender, send time after the first order and the audience of first time buyers. Only the reason to return changes. A holdout receives no message.",
    follow:{sms:"Repeat the winning trigger by SMS for customers with consent."}},
@@ -488,7 +490,7 @@ var CELLS=[
 ];
 
 /* ---------- state ---------- */
-var S={p:"fit",s:"con",traffic:"mid",ch:{email:true,post:true,sms:false,paid:true},dim:true};
+var S={p:"fit",s:"con",traffic:"mid",ch:{email:true,post:true,sms:false,paid:true,search:true},dim:true};
 function sget(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function sset(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 try{var saved=JSON.parse(sget("gl_diag")||"null");if(saved&&TYPES[saved.p]){S=Object.assign(S,saved);}}catch(e){}
