@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ecommerce Growth Lab</title>
+<meta name="description" content="Growth lab by Simplificate: a store type diagnostic and 24 experiments across four phases for online stores.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: lab notebook for a shop floor. Header, approach with the revenue equation, a live diagnostic,
+   test map, four phases of experiment cards (drawn store mockups), method. */
+:root{
+  --bg:#EEF0EA; --surface:#FBFCF8; --surface2:#E3E7DE; --ink:#14171A; --muted:#565C55; --line:#CDD2C6;
+  --accent:#0E6655; --accent-fg:#FFFFFF; --soft:#D5E9E1; --mark:#F2C230; --mark-ink:#14171A;
+  /* store mockups are pictures of a light shop page, same in both themes */
+  --m-paper:#FFFFFF; --m-ink:#1A1C1E; --m-muted:#6B6F72; --m-line:#E4E5E1; --m-slot:#E8E4DB; --m-slot2:#D9D3C6;
+  --m-btn:#1A1C1E; --m-btn-fg:#FFFFFF; --m-star:#B97F00; --m-ok:#0E6655; --m-okbg:#E3F1EB; --m-frame:#C9CCC4;
+  --display:"Anybody","Arial Narrow",Impact,sans-serif;
+  --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1210; --surface:#151A17; --surface2:#1C2420; --ink:#E7ECE4; --muted:#9CA59B; --line:#2A332E;
+  --accent:#5CC9AE; --accent-fg:#0E1210; --soft:#173A31; --mark:#E9BE3A; --mark-ink:#14171A; --m-frame:#3A443E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1210; --surface:#151A17; --surface2:#1C2420; --ink:#E7ECE4; --muted:#9CA59B; --line:#2A332E;
+  --accent:#5CC9AE; --accent-fg:#0E1210; --soft:#173A31; --mark:#E9BE3A; --mark-ink:#14171A; --m-frame:#3A443E; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:28px 80px}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;font-stretch:72%}
+h1{font-size:clamp(64px,12vw,148px);line-height:.82;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+h1 span{color:var(--accent);display:block}
+h2{font-size:clamp(30px,4vw,46px);font-weight:850;line-height:.95;text-transform:uppercase}
+h3{font-size:clamp(24px,2.6vw,30px);font-weight:800;line-height:1;text-transform:uppercase}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.lead{max-width:64ch;color:var(--muted);font-size:17.5px}
+a{color:inherit}
+
+header{display:grid;gap:18px;margin-bottom:24px}
+.tagrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.byline{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:6px 16px;font-weight:700;font-size:14px;line-height:1.2}
+.themebtn{margin-left:auto;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 14px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn .ti{width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);padding:5px 12px;font-size:13px;background:var(--surface)}
+.chip b{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-right:6px}
+
+.sticky{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-block:1px solid var(--line);margin-inline:-20px;padding-inline:20px}
+.jump{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding-block:11px}
+.jump a{text-decoration:none}
+.jump a:hover{color:var(--accent)}
+@media (max-width:700px){.jump{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap}.jump .now{margin-left:12px}}
+.jump .now{margin-left:auto;display:flex;gap:6px;align-items:center;color:var(--muted);text-transform:none;letter-spacing:.02em}
+.jump .now b{background:var(--mark);color:var(--mark-ink);padding:2px 8px;font-weight:500}
+a:focus-visible,button:focus-visible,input:focus-visible+span,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+section{margin-top:64px;scroll-margin-top:60px}
+.sec-head{display:grid;gap:10px;margin-bottom:22px}
+.sec-head p{max-width:68ch;color:var(--muted)}
+.tile{background:var(--surface);border:1px solid var(--line);padding:20px;min-width:0}
+.tile .eyebrow{display:block;margin-bottom:8px}
+.tile strong{display:block;font-size:17px;margin-bottom:6px;line-height:1.3}
+.tile p{font-size:15px;color:var(--muted)}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+
+/* revenue equation */
+.eq{margin-top:18px;background:var(--surface);border:1px solid var(--line);padding:22px 20px;overflow-x:auto}
+.eq-row{display:flex;align-items:stretch;gap:10px;min-width:880px}
+.term{flex:1;display:grid;gap:8px;align-content:start}
+.term .t{font-family:var(--display);font-stretch:72%;font-weight:850;font-size:26px;line-height:1;text-transform:uppercase}
+.term .ph{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;justify-self:start;background:var(--soft);color:var(--ink)}
+.term.ext .ph{background:transparent;border:1px dashed var(--line);color:var(--muted)}
+.term.ext .t{color:var(--muted)}
+.op{font-family:var(--display);font-weight:900;font-size:30px;color:var(--accent);line-height:1;padding-top:0}
+.eq .cap{margin-top:16px;font-size:14px;color:var(--muted);min-width:0}
+
+/* diagnostic */
+.diag{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:900px){.diag{grid-template-columns:1fr}}
+.qs{display:grid;gap:22px;background:var(--surface);border:1px solid var(--line);padding:22px 20px}
+.q{display:grid;gap:10px;border:0;margin:0;padding:0;min-width:0}
+.q legend{font-weight:700;font-size:16px;padding:0;margin-bottom:10px}
+.q legend small{display:block;font-weight:400;color:var(--muted);font-size:14px;margin-top:2px}
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.opt{position:relative;display:block;cursor:pointer}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:grid;gap:4px;border:1.5px solid var(--line);padding:12px 14px;height:100%;background:var(--bg);transition:border-color .15s,background .15s}
+.opt span b{font-size:15px}
+.opt span i{font-style:normal;font-size:13px;color:var(--muted);line-height:1.4}
+.opt input:checked+span{border-color:var(--accent);background:var(--soft)}
+.opt input:disabled+span{opacity:.4;cursor:not-allowed}
+.opt:hover span{border-color:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills .opt span{padding:8px 14px;display:block;font-size:14px}
+.note{font-size:13px;color:var(--muted)}
+.example{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--mark);color:var(--mark-ink);padding:3px 8px;justify-self:start}
+
+.plan{display:grid;gap:18px;background:var(--ink);color:var(--bg);padding:22px 20px;position:sticky;top:64px}
+@media (max-width:900px){.plan{position:static}}
+.plan .eyebrow{color:var(--mark)}
+.plan h3{color:var(--bg)}
+.plan p{color:var(--bg);opacity:.82;font-size:15px}
+.bars{display:grid;gap:10px}
+.barrow{display:grid;grid-template-columns:120px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:14px}
+.barrow .tr{height:12px;background:color-mix(in srgb,var(--bg) 18%,transparent);position:relative}
+.barrow .fl{position:absolute;inset:0 auto 0 0;background:var(--mark);transition:width .3s}
+.barrow .lv{font-family:var(--mono);font-size:11.5px;text-align:right;opacity:.85}
+.first{display:grid;gap:8px;counter-reset:f}
+.first a{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;text-decoration:none;padding:10px 12px;border:1px solid color-mix(in srgb,var(--bg) 28%,transparent)}
+.first a:hover{border-color:var(--mark)}
+.first .no{font-family:var(--display);font-stretch:72%;font-weight:900;font-size:30px;line-height:1;color:var(--mark);grid-row:span 2}
+.first .nm{font-weight:700;font-size:15px}
+.first .gt{font-family:var(--mono);font-size:11.5px;opacity:.8}
+.dimtog{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer}
+.dimtog input{accent-color:var(--mark);width:16px;height:16px}
+
+/* test map */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);padding:6px 8px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:1020px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+td.rn{font-family:var(--display);font-stretch:72%;font-weight:900;font-size:28px;color:var(--accent);line-height:1}
+td.wt span{display:inline-block;font-size:12.5px;padding:2px 8px;margin:0 4px 4px 0;background:var(--surface2)}
+td.wt span.on{background:var(--mark);color:var(--mark-ink)}
+.standing{margin-top:12px;font-size:14px;color:var(--muted)}
+.standing b{color:var(--ink)}
+
+/* phases and rounds */
+.phase{margin-top:84px}
+.phase>.sec-head h2{font-size:clamp(38px,6vw,72px)}
+.phase .jobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
+.round{margin-top:46px;border-top:1px solid var(--line);padding-top:26px}
+.round-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+.round-head .n{font-family:var(--display);font-stretch:72%;font-weight:900;font-size:72px;color:var(--accent);line-height:.85}
+.round-head h3{max-width:30ch}
+.round-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 12px}
+.round-meta span{font-size:13px;padding:4px 10px;background:var(--surface2)}
+.round-meta span b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-right:6px}
+.round .hold{max-width:76ch;color:var(--muted);font-size:15px}
+.round .follow{margin-top:8px;font-size:14px;max-width:76ch}
+.round .follow b{background:var(--soft);padding:1px 6px;font-weight:600}
+
+.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);min-width:0;display:flex;flex-direction:column;transition:opacity .25s}
+.card.dim{opacity:.42}
+body.nodim .card.dim{opacity:1}
+.cbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line)}
+.badge{background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:11.5px;font-weight:500;padding:5px 10px;letter-spacing:.06em}
+.chan{font-family:var(--mono);font-size:11.5px;padding:5px 10px;border:1px solid var(--line)}
+.status{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px}
+.status.pri{background:var(--mark);color:var(--mark-ink)}
+.status.fits{background:var(--soft);color:var(--ink)}
+.status.low{border:1px dashed var(--line);color:var(--muted)}
+.status.need{border:1px dashed var(--muted);color:var(--muted)}
+.stage{background:var(--surface2);padding:18px 16px;display:grid;place-items:center;min-height:360px}
+.meta{padding:16px 18px 20px;display:grid;gap:13px;font-size:14.5px}
+.meta h4{font-family:var(--body);font-stretch:100%;font-size:18px;font-weight:700;line-height:1.25}
+.kv{display:grid;gap:3px;min-width:0}
+.kv .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--accent)}
+.kv .v{min-width:0}
+.kv .v.m{color:var(--muted)}
+.trig{display:flex;gap:6px;flex-wrap:wrap}
+.trig span{background:var(--surface2);padding:3px 10px;font-size:12.5px}
+.types-tag{display:flex;gap:6px;flex-wrap:wrap}
+.types-tag span{font-size:12.5px;padding:2px 8px;border:1px solid var(--line)}
+.types-tag span.on{border-color:var(--accent);background:var(--soft)}
+.gate{font-family:var(--mono);font-size:12.5px;line-height:1.45}
+
+/* ---------- store mockups ---------- */
+.mk{width:100%;max-width:300px;background:var(--m-paper);color:var(--m-ink);font-family:var(--body);font-size:12.5px;line-height:1.4;border:1px solid var(--m-frame);box-shadow:0 10px 24px rgba(20,23,26,.12);display:grid;align-content:start}
+.mk .top{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--m-line);font-size:11px;color:var(--m-muted)}
+.mk .top b{font-family:var(--display);font-stretch:80%;font-weight:850;font-size:14px;color:var(--m-ink);text-transform:uppercase;letter-spacing:.02em}
+.mk .bd{padding:12px;display:grid;gap:9px}
+.slot{background:linear-gradient(160deg,var(--m-slot),var(--m-slot2));display:grid;place-items:center;color:var(--m-muted);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;position:relative}
+.slot::before{content:"";width:34%;aspect-ratio:3/4;border-radius:10px 10px 4px 4px;background:var(--m-paper);opacity:.75;box-shadow:0 6px 14px rgba(0,0,0,.08)}
+.slot em{position:absolute;bottom:6px;left:8px;font-style:normal}
+.slot.lg{height:118px}.slot.sm{width:46px;height:46px;flex:none}.slot.sm::before{width:44%;border-radius:4px}.slot.sm em{display:none}
+.slot.md{height:84px}
+.pn{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pn b{font-size:14px}.pn span{font-weight:700;font-size:14px}
+.btn{background:var(--m-btn);color:var(--m-btn-fg);text-align:center;padding:9px 10px;font-weight:700;font-size:12.5px}
+.btn.ghost{background:transparent;color:var(--m-ink);border:1px solid var(--m-ink)}
+.hl{background:var(--m-okbg);border:1.5px solid var(--m-ok);padding:9px 10px;display:grid;gap:5px;position:relative}
+.hl::after{content:"Variable";position:absolute;top:-8px;right:8px;background:var(--m-ok);color:var(--m-btn-fg);font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:1px 5px}
+.stars{color:var(--m-star);letter-spacing:1px;font-size:12px}
+.mut{color:var(--m-muted)}
+.row{display:flex;justify-content:space-between;gap:8px}
+.line{border-top:1px solid var(--m-line)}
+.sz{display:flex;gap:5px}.sz span{flex:1;border:1px solid var(--m-line);text-align:center;padding:4px 0;font-size:11px}.sz span.on{border-color:var(--m-ink);font-weight:700}
+.prog{height:6px;background:var(--m-line);position:relative}.prog i{position:absolute;inset:0 auto 0 0;width:78%;background:var(--m-ok)}
+.pay{display:grid;gap:5px}.pay span{border:1px solid var(--m-line);padding:7px 10px;font-weight:600;font-size:12px;display:flex;justify-content:space-between}
+.citem{display:flex;gap:10px;align-items:center}
+.citem div{flex:1;min-width:0}
+.add{border:1px solid var(--m-ink);padding:3px 8px;font-weight:700;font-size:11px;white-space:nowrap}
+.mail .top{flex-direction:column;align-items:flex-start;gap:1px}
+.mail .subj{font-weight:700;color:var(--m-ink);font-size:12.5px}
+.mail h5{margin:0;font-family:var(--display);font-stretch:80%;font-weight:850;font-size:20px;line-height:1.02;text-transform:uppercase}
+.qa{display:grid;gap:6px}.qa div{border-top:1px solid var(--m-line);padding-top:6px}
+.choice{border:1px solid var(--m-line);padding:9px 10px;display:grid;gap:2px}
+.choice.on{border:1.5px solid var(--m-ink)}
+
+.method .tile{display:grid;gap:6px;align-content:start}
+footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:520px){.barrow{grid-template-columns:100px minmax(0,1fr) 46px}.stage{min-height:0}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="tagrow">
+    <span class="byline">Growth lab by Simplificate</span>
+    <button class="themebtn" id="themebtn" type="button"><span class="ti" aria-hidden="true"></span><span id="themelabel">Dark mode</span></button>
+  </div>
+  <span class="eyebrow">For online stores</span>
+  <h1>Growth<span>Lab</span></h1>
+  <p class="lead">One system for any online store. A short diagnostic reads the store type, the channels it runs and its traffic, then weights 24 experiments across four phases of the revenue equation. Each experiment comes with the asset it tests, the lever behind it and the way it gets read.</p>
+  <div class="chips">
+    <span class="chip"><b>Store types</b>4</span>
+    <span class="chip"><b>Phases</b>4</span>
+    <span class="chip"><b>Rounds</b>8</span>
+    <span class="chip"><b>Experiments</b>24</span>
+    <span class="chip"><b>Guardrail</b>Net revenue after returns</span>
+  </div>
+</header>
+
+<div class="sticky">
+  <nav class="jump" aria-label="Sections">
+    <a href="#approach">Approach</a><a href="#diagnostic">Diagnostic</a><a href="#map">Test map</a>
+    <a href="#convert">Convert</a><a href="#order">Order value</a><a href="#keep">Keep the sale</a><a href="#back">Come back</a><a href="#method">Method</a>
+    <span class="now">Store <b id="nowtype">Fit sensitive</b></span>
+  </nav>
+</div>
+
+<section id="approach">
+  <div class="sec-head">
+    <span class="eyebrow">Approach</span>
+    <h2>How I build a growth plan</h2>
+    <p>The same four steps for any online store. The experiments below are what the steps produce once the store type, the channels and the traffic are known.</p>
+  </div>
+  <div class="grid4">
+    <div class="tile"><span class="eyebrow">01</span><strong>Start from the audit</strong><p>The lab begins once the account audit is done. Its findings set the store type, the channels and the traffic in the diagnostic below, and decide which rounds can run.</p></div>
+    <div class="tile"><span class="eyebrow">02</span><strong>Find the term that moves</strong><p>Net revenue is the product of five terms. The ad lab works on sessions. This lab works on the other four, one phase each, so every experiment names the term it is meant to move.</p></div>
+    <div class="tile"><span class="eyebrow">03</span><strong>Pick the lever, then build the asset</strong><p>Every experiment pairs one psychological lever with two emotional triggers and a concrete asset: a product page block, a cart message, an email. The asset follows the lever, so each cell tests a separate idea.</p></div>
+    <div class="tile"><span class="eyebrow">04</span><strong>Test one variable at a time</strong><p>Each round has one variable, one primary read and net revenue after returns as the guardrail. The traffic answer in the diagnostic decides whether a round runs as an A/B test, a holdout or a before and after read.</p></div>
+  </div>
+  <div class="eq" role="group" aria-label="Revenue equation">
+    <div class="eq-row">
+      <div class="term ext"><span class="t">New visitor sessions</span><span class="ph">Ad lab</span></div>
+      <span class="op" aria-hidden="true">×</span>
+      <div class="term"><span class="t">First order conversion</span><span class="ph">Convert</span></div>
+      <span class="op" aria-hidden="true">×</span>
+      <div class="term"><span class="t">Order value</span><span class="ph">Order value</span></div>
+      <span class="op" aria-hidden="true">×</span>
+      <div class="term"><span class="t">Kept share</span><span class="ph">Keep the sale</span></div>
+      <span class="op" aria-hidden="true">×</span>
+      <div class="term"><span class="t">Orders per customer</span><span class="ph">Come back</span></div>
+      <span class="op" aria-hidden="true">=</span>
+      <div class="term"><span class="t">Net revenue</span><span class="ph" style="background:var(--mark);color:var(--mark-ink)">Guardrail</span></div>
+    </div>
+    <p class="cap">Sessions and first order conversion produce new customers. Orders per customer counts the orders that follow, and kept share is the part of revenue that is not refunded. Keep the sale works on two terms: recovered checkouts add to conversion, and fewer avoidable returns raise the kept share. A lift in one term that costs more in another is a loss, which is why every round reports net revenue.</p>
+  </div>
+</section>
+
+<section id="diagnostic">
+  <div class="sec-head">
+    <span class="eyebrow">Diagnostic</span>
+    <h2>Read the store</h2>
+    <p>Four questions. The answers reorder the phases, pick the first rounds to run and mark every experiment below as a priority, a fit or a lower priority for this store.</p>
+  </div>
+  <div class="diag">
+    <form class="qs" id="diagform" autocomplete="off">
+      <span class="example">Example store, change any answer</span>
+      <fieldset class="q">
+        <legend>What kind of store is it?<small>The type that describes most of its revenue.</small></legend>
+        <div class="types" id="ptypes"></div>
+      </fieldset>
+      <fieldset class="q">
+        <legend>Does a second type apply?<small>Many stores sit between two. The second type counts for half.</small></legend>
+        <div class="pills" id="stypes"></div>
+      </fieldset>
+      <fieldset class="q">
+        <legend>Monthly sessions on the site<small>Decides which site rounds can run as a true A/B test.</small></legend>
+        <div class="pills" id="traffic"></div>
+        <p class="note">The bands are a starting point. Every round still gets a sample size check before launch.</p>
+      </fieldset>
+      <fieldset class="q">
+        <legend>Which channels does the store run today?<small>The site is always on.</small></legend>
+        <div class="pills" id="chans"></div>
+      </fieldset>
+    </form>
+    <aside class="plan" aria-live="polite">
+      <div><span class="eyebrow">Plan for this store</span><h3 id="plantitle" style="margin-top:6px">Fit sensitive</h3></div>
+      <p id="plantext"></p>
+      <div class="bars" id="bars"></div>
+      <div><span class="eyebrow">Run these first, in parallel</span></div>
+      <div class="first" id="first"></div>
+      <label class="dimtog"><input type="checkbox" id="dimtog" checked> Fade experiments that are a lower priority</label>
+    </aside>
+  </div>
+</section>
+
+<section id="map">
+  <div class="sec-head">
+    <span class="eyebrow">Test map</span>
+    <h2>Eight rounds, one variable each</h2>
+    <p>Rounds in different channels run in parallel. Two rounds never share a page or an audience at the same time. The test type follows the traffic answer in the diagnostic, and highlighted store types match it.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Round</th><th>Phase</th><th>Variable tested</th><th>Channel</th><th>Test type</th><th>Primary read</th><th>Round guardrail</th><th>Weighted for</th></tr></thead>
+    <tbody id="maprows"></tbody>
+  </table></div>
+  <p class="standing"><b>Standing guardrail on every round:</b> net revenue after returns and discounts, read once the return window for the test orders has closed.</p>
+</section>
+
+<div id="phases"></div>
+
+<section id="method" class="method">
+  <div class="sec-head">
+    <span class="eyebrow">Method</span>
+    <h2>How every round is run</h2>
+  </div>
+  <div class="grid3">
+    <div class="tile"><span class="eyebrow">Before round 1</span><strong>Tracking confirmed first</strong><p>No round starts until the audit confirms that purchases, add to cart and email revenue are tracked correctly. A test read on broken tracking can name a winner that does not exist.</p></div>
+    <div class="tile"><span class="eyebrow">Scheduling</span><strong>One test per page and audience</strong><p>Rounds in different channels run at the same time. Two rounds never share a page or an audience, because their results would mix. When the cells of one round sit on different pages, visitors are split once at the start, so each person sees one version only.</p></div>
+    <div class="tile"><span class="eyebrow">Duration and sample</span><strong>Two weeks and a planned sample</strong><p>Every round covers at least two weekly cycles and has a required sample agreed before launch. It closes once each cell reaches that sample, within six weeks. When six weeks cannot reach it, the round runs as a before and after read with its risk written down.</p></div>
+    <div class="tile"><span class="eyebrow">Owned channels</span><strong>Holdouts for email and SMS</strong><p>Email and SMS rounds keep a random 10 to 20% of the audience that receives nothing. The lift is measured against no message, which is the comparison that pays for the flow.</p></div>
+    <div class="tile"><span class="eyebrow">Reading</span><strong>Net revenue decides</strong><p>A cell that wins on its primary read and loses on net revenue after returns and discounts does not ship. Return rates are read once the return window for the test orders has closed.</p></div>
+    <div class="tile"><span class="eyebrow">Next round</span><strong>The winner becomes the control</strong><p>The winning cell goes live for everyone and becomes the control for the next round in that phase. A tie keeps the current version and moves the round to the next variable.</p></div>
+  </div>
+</section>
+
+<footer>Growth lab by Simplificate. Acquisition experiments live in the ad lab, which covers the sessions term of the same equation.</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var TYPES={
+  rep:{n:"Replenishment",d:"Consumables people reorder: skincare, supplements, coffee, pet food.",
+    plan:"Repeat purchase is the business, so Come back carries the most weight. Reorder timing and the first add on are where the money sits."},
+  fit:{n:"Fit sensitive",d:"Fashion, footwear and anything with sizing.",
+    plan:"Returns are the largest hidden cost here, so Keep the sale carries the most weight, and every conversion lift is read against returns."},
+  con:{n:"Considered purchase",d:"Furniture, electronics, premium homeware.",
+    plan:"Buyers visit several times before ordering, so Convert carries the most weight: proof on the product page and recovery of stalled checkouts."},
+  gift:{n:"Gift and occasion",d:"Jewellery, flowers, personalised and seasonal goods.",
+    plan:"Repeat purchase follows dates such as birthdays, so Order value and occasion reminders carry the most weight. Plan rounds outside peak weeks."}
+};
+var ORDER=["rep","fit","con","gift"];
+var PW={rep:{convert:2,order:2,keep:1,back:3},fit:{convert:2,order:1,keep:3,back:1},con:{convert:3,order:1,keep:2,back:1},gift:{convert:2,order:3,keep:1,back:2}};
+var TRAFFIC=[{k:"low",n:"Under 10,000"},{k:"mid",n:"10,000 to 50,000"},{k:"high",n:"Over 50,000"}];
+var CHANS=[{k:"email",n:"Email list"},{k:"post",n:"Editable post purchase page"},{k:"sms",n:"SMS with consent"},{k:"paid",n:"Paid social"}];
+var CHNAME={email:"Email list",post:"Editable post purchase page",sms:"SMS",paid:"Paid social"};
+
+var PHASES=[
+  {id:"convert",n:"Convert",term:"First order conversion",job:"Turn a product page visit into a paid order.",
+   hook:"Proof and reassurance at the two moments buyers hesitate: the product page and the payment step."},
+  {id:"order",n:"Order value",term:"Order value",job:"Raise what each order is worth without lowering conversion.",
+   hook:"Offer structure first, then the placement of the add on. Margin per order sits next to every read."},
+  {id:"keep",n:"Keep the sale",term:"Kept share",job:"Finish the orders that stalled and keep the ones that shipped.",
+   hook:"Recovery messages for abandoned checkouts and fewer avoidable returns. Both are read against a control."},
+  {id:"back",n:"Come back",term:"Orders per customer",job:"Make the second order happen and turn buyers into a channel.",
+   hook:"A reason to return that fits the store type, then one advocacy ask once the product has arrived."}
+];
+
+var ROUNDS=[
+  {n:1,ph:"convert",v:"Which proof sits next to the price on the product page",ch:"Site",read:"Add to cart rate",guard:"Order conversion rate",w:["con","fit"],surface:"pdp",
+   hold:"Held constant: page layout, product, photography and price. Only the proof block around the price and the button changes."},
+  {n:2,ph:"convert",v:"What removes hesitation at the payment step",ch:"Site",read:"Checkout completion rate",guard:"Payment errors and support contacts",w:["rep","fit","con","gift"],surface:"checkout",
+   hold:"Held constant: checkout fields, order summary and delivery cost. One element is added at the payment step."},
+  {n:3,ph:"order",v:"Offer structure",ch:"Site",read:"Average order value",guard:"Conversion rate and margin per order",w:["gift","rep"],surface:"cart",
+   hold:"Held constant: the product range and a comparable saving per order, around €5 to €6. Only the structure of the offer changes, and each visitor sees one structure.",
+   follow:{paid:"The winning offer becomes the offer round in the ad lab, run as a Meta A/B test."}},
+  {n:4,ph:"order",v:"Where the add on appears",ch:"Site, post purchase, email",read:"Attach rate",guard:"Checkout completion rate",w:["rep","gift"],surface:"addon",
+   hold:"Held constant: the same add on product at the same price. Only the moment it is offered changes. Visitors are split into four groups, a control and one per placement, so nobody sees the offer twice."},
+  {n:5,ph:"keep",v:"Second message in the abandoned checkout flow",ch:"Email",read:"Recovered revenue per abandoned checkout",guard:"Unsubscribe rate and discount cost",w:["con","fit"],surface:"abandon",
+   hold:"Held constant: the first message, a plain reminder sent to every cell, plus channel and send times. Only the second message changes. A holdout receives no messages.",
+   follow:{sms:"Run the winning message by SMS as a second step for buyers with consent.",paid:"Retarget non openers with the winning message in a Story ad."}},
+  {n:6,ph:"keep",v:"What prevents an avoidable return",ch:"Site, email",read:"Return rate per order",guard:"Conversion rate",w:["fit"],surface:"pdp",
+   hold:"Held constant: the return policy itself. The round changes guidance and process, never the terms. Visitors are split at the start so each buyer meets one version. Read once the return window has closed."},
+  {n:7,ph:"back",v:"What prompts the second order",ch:"Email",read:"Repeat purchase rate within 90 days",guard:"Unsubscribe rate",w:["rep","gift"],surface:"customers",
+   hold:"Held constant: channel, sender, send time after the first order and the audience of first time buyers. Only the reason to return changes. A holdout receives no message.",
+   follow:{sms:"Repeat the winning trigger by SMS for customers with consent."}},
+  {n:8,ph:"back",v:"Which advocacy ask follows delivery",ch:"Email",read:"Advocacy actions per 100 delivered orders",guard:"Reward cost per order",w:[],surface:"customers",
+   hold:"Held constant: channel, timing after delivery and the audience of customers whose order arrived and was kept. Only the ask changes. Volumes are small, so this round reads over a longer window."}
+];
+
+/* gate: s = site (d = depth, 1 product page, 2 cart, 3 checkout or post purchase), l = owned list holdout */
+var CELLS=[
+ {r:1,c:"A",t:"Review summary next to the price",chan:"Product page",need:null,gate:{s:1},fit:["rep","fit","con","gift"],
+  mk:{k:"pdp",b:"reviews"},lever:"Social proof",emo:["Trust","Belonging"],
+  hyp:"Buyers comparing similar products use other buyers to settle doubt. Moving the rating and one review up to the price puts that evidence where the decision happens. Uses the store's own reviews only."},
+ {r:1,c:"B",t:"Material and make detail next to the price",chan:"Product page",need:null,gate:{s:1},fit:["rep","fit","con"],
+  mk:{k:"pdp",b:"spec"},lever:"Effort heuristic",emo:["Confidence","Value"],
+  hyp:"People judge value by the work they can see. Naming what the product is made of, where and how, gives the price a reason before the buyer looks for one."},
+ {r:1,c:"C",t:"Delivery date and returns under the button",chan:"Product page",need:null,gate:{s:1},fit:["fit","con","gift"],
+  mk:{k:"pdp",b:"delivery"},lever:"Risk reversal",emo:["Safety","Ease"],
+  hyp:"A buyer who is unsure about delivery or returns leaves to check, and often does not come back. Stating both under the button answers the question on the page. Shows only the terms the store already offers."},
+
+ {r:2,c:"A",t:"Delivery date at checkout",chan:"Checkout",need:null,gate:{s:3},fit:["rep","fit","con","gift"],
+  mk:{k:"co",b:"date"},lever:"Mental simulation",emo:["Anticipation","Certainty"],
+  hyp:"A named day lets the buyer picture the parcel arriving. The order feels closer to done before payment."},
+ {r:2,c:"B",t:"Familiar payment methods first",chan:"Checkout",need:null,gate:{s:3},fit:["rep","fit","con","gift"],
+  mk:{k:"co",b:"pay"},lever:"Processing fluency",emo:["Ease","Control"],
+  hyp:"Paying the way you always pay takes no thought. Showing the methods the store's market uses most above the card form, iDEAL in the Netherlands, removes typing at the point people drop."},
+ {r:2,c:"C",t:"Reassurance next to the pay button",chan:"Checkout",need:null,gate:{s:3},fit:["rep","fit","con","gift"],
+  mk:{k:"co",b:"reassure"},lever:"Loss aversion",emo:["Safety","Relief"],
+  hyp:"At the pay button the possible loss feels larger than the gain. Two short lines on returns and payment security make the loss smaller where it is felt."},
+
+ {r:3,c:"A",t:"Bundle at one price",chan:"Product page",need:null,gate:{s:1},fit:["rep","con","gift"],
+  mk:{k:"bundle"},lever:"Anchoring and bundling",emo:["Value","Completion"],
+  hyp:"Shown next to the sum of the single prices, one bundle price reads as a saving, and a set feels complete in a way three products do not."},
+ {r:3,c:"B",t:"Free delivery threshold with progress bar",chan:"Cart",need:null,gate:{s:2},fit:["rep","fit","con","gift"],
+  mk:{k:"cart",b:"threshold"},lever:"Goal gradient",emo:["Progress","Reward"],
+  hyp:"People speed up as a goal gets close. A bar that shows the buyer is most of the way to free delivery makes the last few euros feel worth adding. The threshold sits just above the current average order value."},
+ {r:3,c:"C",t:"Quantity break",chan:"Cart",need:null,gate:{s:2},fit:["rep"],
+  mk:{k:"cart",b:"qty"},lever:"Anchoring on unit price",emo:["Value","Readiness"],
+  hyp:"For a product people use up, a lower price per unit makes buying ahead feel sensible. The single unit price becomes the anchor for the larger pack."},
+
+ {r:4,c:"A",t:"Add on in the cart",chan:"Cart",need:null,gate:{s:2},fit:["rep","fit","con","gift"],
+  mk:{k:"cart",b:"goes"},lever:"Mental accounting",emo:["Completion","Ease"],
+  hyp:"Next to a larger spend already decided, a small add on is filed under the same purchase and feels minor. One complementary item, one tap to add."},
+ {r:4,c:"B",t:"One click offer after payment",chan:"Post purchase",need:"post",gate:{s:3},fit:["rep","fit","gift"],
+  mk:{k:"post"},lever:"Commitment and consistency",emo:["Momentum","Convenience"],
+  hyp:"The buyer has just said yes and their details are saved. A second yes with no form to fill is the smallest step they will meet, and it cannot cost the first order."},
+ {r:4,c:"C",t:"Add on in the confirmation email",chan:"Email",need:"email",gate:{l:1},fit:["rep","gift"],
+  mk:{k:"mail",subj:"Your order is confirmed",pre:"Order 10482",h:"Add to this order before it ships",body:"We pack your order tomorrow morning. Add Product 02 now and it ships in the same parcel.",p:true,btn:"Add to my order"},
+  lever:"Deadline",emo:["Timing","Convenience"],
+  hyp:"The confirmation email is the most opened message a store sends. The window closes when the parcel ships, which gives a real reason to decide now."},
+
+ {r:5,c:"A",t:"Second reminder",chan:"Email",need:"email",gate:{l:1},fit:["rep","fit","con","gift"],
+  mk:{k:"mail",subj:"You left something in your cart",pre:"Saved for you",h:"Still thinking it over?",body:"Your cart is saved. Product 01 is waiting where you left it.",p:true,btn:"Back to my cart"},
+  lever:"Zeigarnik effect",emo:["Recognition","Ease"],
+  hyp:"An unfinished task stays on the mind. A second short reminder with the product and the saved cart, and nothing else to read, turns that tension into one tap back."},
+ {r:5,c:"B",t:"Reassurance",chan:"Email",need:"email",gate:{l:1},fit:["fit","con"],
+  mk:{k:"mail",subj:"Questions before you order?",pre:"The three we hear most",h:"What people ask first",qa:[["Delivery","1 to 3 working days"],["Returns","Free within 30 days"],["Payment","iDEAL, card or pay later"]],btn:"Back to my cart"},
+  lever:"Ambiguity aversion",emo:["Trust","Clarity"],
+  hyp:"People avoid choices with open questions. Answering the questions the store hears most turns a stalled checkout into a decision with nothing left to find out."},
+ {r:5,c:"C",t:"Incentive on the second message",chan:"Email",need:"email",gate:{l:1},fit:["rep","fit","con","gift"],
+  mk:{k:"mail",subj:"Delivery is on us for this order",pre:"Your cart is saved",h:"Free delivery on your cart",body:"Complete your order within 48 hours and delivery is free.",p:true,btn:"Complete my order"},
+  lever:"Zero price effect",emo:["Value","Relief"],
+  hyp:"Removing a cost entirely moves people more than a discount of the same size. Placed in the second message, so buyers who complete after the first never see it. Read on margin and on repeat abandoners."},
+
+ {r:6,c:"A",t:"Fit guidance on the product page",chan:"Product page",need:null,gate:{s:1},fit:["fit"],
+  mk:{k:"pdp",b:"fit"},lever:"Social proof",emo:["Confidence","Belonging"],
+  hyp:"Buyers who are unsure about size order two and return one. A plain fit note based on the store's own return reasons tells them what others chose and why."},
+ {r:6,c:"B",t:"Exchange shown first in the returns flow",chan:"Returns flow",need:null,gate:{s:3},fit:["fit","con"],
+  mk:{k:"ret"},lever:"Default effect",emo:["Ease","Continuity"],
+  hyp:"Most people take the option in front of them. When an instant exchange is the first choice and the refund the second, more returns stay as revenue. The policy itself does not change."},
+ {r:6,c:"C",t:"Expectation email before delivery",chan:"Email",need:"email",gate:{l:1},fit:["fit","con"],
+  mk:{k:"mail",subj:"Your order arrives tomorrow",pre:"Before you open the parcel",h:"Before it arrives",body:"How to check the fit, how to care for it, and how exchanges work if you need another size.",btn:"Read the guide"},
+  lever:"Endowment effect",emo:["Anticipation","Ownership"],
+  hyp:"Ownership starts before the parcel arrives. A buyer who already knows how to check and care for the product treats it as theirs, which lowers returns for small doubts."},
+
+ {r:7,c:"A",t:"Reorder timed to use",chan:"Email",need:"email",gate:{l:1},fit:["rep"],
+  mk:{k:"mail",subj:"Running low?",pre:"Your Product 01",h:"Time for a refill",body:"Product 01 usually lasts about 30 days. Yours arrived 26 days ago.",p:true,btn:"Reorder in one tap"},
+  lever:"Habit cue",emo:["Convenience","Routine"],
+  hyp:"A reminder that lands when the product runs out turns a reorder into a habit. The timing comes from the store's own median gap between first and second order."},
+ {r:7,c:"B",t:"Use and care content",chan:"Email",need:"email",gate:{l:1},fit:["rep","fit","con"],
+  mk:{k:"mail",subj:"Getting the most out of Product 01",pre:"A short guide",h:"Three ways to use it",body:"A short guide from our team, with the one product that pairs with it.",p:true,btn:"Read the guide"},
+  lever:"Reciprocity",emo:["Mastery","Care"],
+  hyp:"Useful content given first creates a small debt. A guide that makes the first purchase better earns attention for the one product that goes with it."},
+ {r:7,c:"C",t:"Ask for a date, then remind",chan:"Email",need:"email",gate:{l:1},fit:["gift"],
+  mk:{k:"mail",subj:"Want a reminder for next time?",pre:"One date, one reminder",h:"Save a date, we remind you",body:"Add a birthday or an anniversary. We send one reminder ten days before it, and nothing else.",btn:"Save a date"},
+  lever:"Foot in the door",emo:["Thoughtfulness","Ease"],
+  hyp:"Saving a date is a small first yes. The reminder then arrives as a service the buyer asked for, at the moment a gift is needed. Dates fall across the year, so this cell is also read at 12 months."},
+
+ {r:8,c:"A",t:"Review request with photo",chan:"Email",need:"email",gate:{l:1},fit:["rep","fit","con","gift"],
+  mk:{k:"mail",subj:"How is Product 01?",pre:"Two questions",h:"Tell other buyers what you think",body:"Two questions and an optional photo. It takes about a minute.",stars:true,btn:"Write a review"},
+  lever:"Commitment and consistency",emo:["Pride","Voice"],
+  hyp:"A buyer who states a good opinion in public tends to act in line with it later. Reviews also feed round 1, so this cell pays twice."},
+ {r:8,c:"B",t:"Give and get referral",chan:"Email",need:"email",gate:{l:1},fit:["rep","fit","gift"],
+  mk:{k:"mail",subj:"Give €10, get €10",pre:"Share with a friend",h:"Share with a friend",body:"Your friend gets €10 off their first order. You get €10 when it ships.",btn:"Copy my link"},
+  lever:"Reciprocity",emo:["Generosity","Reward"],
+  hyp:"Giving a friend something first makes sharing feel like a favour to the friend, and the reward on both sides keeps it fair."},
+ {r:8,c:"C",t:"Gift code for a friend",chan:"Email",need:"email",gate:{l:1},fit:["gift","rep"],
+  mk:{k:"mail",subj:"Send a friend €15 from you",pre:"A gift code with your name",h:"A gift for someone you choose",body:"Pick one friend. They get a €15 gift code for their first order, with your name on it.",btn:"Choose a friend"},lever:"Identity signalling",emo:["Pride","Connection"],
+  hyp:"Recommending a find says something about the person who found it. A gift code sent in the buyer's name lets them be that person."}
+];
+
+/* ---------- state ---------- */
+var S={p:"fit",s:"con",traffic:"mid",ch:{email:true,post:true,sms:false,paid:true},dim:true};
+function sget(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function sset(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+try{var saved=JSON.parse(sget("gl_diag")||"null");if(saved&&TYPES[saved.p]){S=Object.assign(S,saved);}}catch(e){}
+
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+/* ---------- mockups ---------- */
+function top(label){return '<div class="top"><b>Your store</b><span>'+esc(label)+'</span></div>'}
+function mock(m){
+  var h="";
+  if(m.k==="pdp"){
+    var blk="";
+    if(m.b==="reviews")blk='<div class="hl"><div class="row"><span class="stars">★★★★★</span><span class="mut">4.7 · 312 reviews</span></div><span>“Exactly as pictured, and it arrived in two days.”</span></div>';
+    if(m.b==="spec")blk='<div class="hl"><div class="row"><span class="mut">Made of</span><b>Organic cotton canvas</b></div><div class="row"><span class="mut">Made in</span><b>Porto, Portugal</b></div><div class="row"><span class="mut">Checked</span><b>By hand, before packing</b></div></div>';
+    if(m.b==="fit")blk='<div class="hl"><b>Fits small</b><span>Most buyers choose one size up.</span><div class="sz"><span>S</span><span>M</span><span class="on">L</span><span>XL</span></div></div>';
+    var under=m.b==="delivery"?'<div class="hl"><div class="row"><b>Order today, arrives Thursday</b></div><div class="row"><span class="mut">Free returns within 30 days</span></div></div>':'';
+    h='<div class="mk" aria-hidden="true">'+top("Product page")+'<div class="bd"><div class="slot lg"><em>Product slot</em></div><div class="pn"><b>Product 01</b><span>€64</span></div>'+blk+'<div class="btn">Add to cart</div>'+under+'</div></div>';
+  }
+  if(m.k==="co"){
+    var a=m.b==="date"?'<div class="hl"><b>Arrives Thursday 15 October</b><span class="mut">Standard delivery, free</span></div>':'<div class="row"><span class="mut">Delivery</span><span>Free</span></div>';
+    var p=m.b==="pay"?'<div class="hl pay"><span>Apple Pay</span><span>iDEAL</span><span>Klarna, pay later</span></div><div class="mut" style="text-align:center">Or pay by card</div>':'<div class="pay"><span>Card number <i class="mut" style="font-style:normal">•••• ••••</i></span></div>';
+    var r=m.b==="reassure"?'<div class="hl"><span>Free returns within 30 days</span><span>Payment secured by your provider</span></div>':'';
+    h='<div class="mk" aria-hidden="true">'+top("Checkout · Payment")+'<div class="bd"><div class="citem"><div class="slot sm"></div><div><b>Product 01</b><div class="mut">Qty 1</div></div><b>€64</b></div><div class="line"></div>'+a+p+'<div class="btn">Pay €64</div>'+r+'</div></div>';
+  }
+  if(m.k==="bundle"){
+    h='<div class="mk" aria-hidden="true">'+top("Product page")+'<div class="bd"><div class="slot md"><em>Product slot</em></div><div class="pn"><b>Product 01</b><span>€64</span></div><div class="hl"><b>Complete the set</b><div class="citem"><div class="slot sm"></div><div class="slot sm"></div><div class="slot sm"></div></div><div class="row"><span>Products 01, 02 and 03</span><span><s class="mut">€116</s> <b>€110</b></span></div></div><div class="btn">Add the set</div></div></div>';
+  }
+  if(m.k==="cart"){
+    var x="";
+    if(m.b==="threshold")x='<div class="hl"><b>€12 away from free delivery</b><div class="prog"><i></i></div></div>';
+    if(m.b==="qty")x='<div class="hl"><b>Buy more, pay less per unit</b><div class="choice"><div class="row"><span>1 unit</span><span>€24 each</span></div></div><div class="choice on"><div class="row"><b>2 units</b><b>€21.60 each</b></div></div><div class="choice"><div class="row"><span>3 units</span><span>€20.40 each</span></div></div></div>';
+    if(m.b==="goes")x='<div class="hl"><b>Goes with your order</b><div class="citem"><div class="slot sm"></div><div><b>Product 02</b><div class="mut">€18</div></div><span class="add">Add</span></div></div>';
+    var it=m.b==="qty"?["Product 04, refill","€24"]:["Product 01","€64"];
+    h='<div class="mk" aria-hidden="true">'+top("Cart")+'<div class="bd"><div class="citem"><div class="slot sm"></div><div><b>'+it[0]+'</b><div class="mut">Qty 1</div></div><b>'+it[1]+'</b></div>'+x+'<div class="line"></div><div class="row"><b>Subtotal</b><b>'+it[1]+'</b></div><div class="btn">Go to checkout</div></div></div>';
+  }
+  if(m.k==="post"){
+    h='<div class="mk" aria-hidden="true">'+top("Order placed")+'<div class="bd"><b style="font-size:15px">Thank you, your order is placed</b><span class="mut">Order 10482 · Confirmation sent by email</span><div class="hl"><b>Add one more to this order</b><div class="citem"><div class="slot sm"></div><div><b>Product 02</b><div class="mut">€18 · Ships in the same parcel</div></div></div><div class="btn">Add to order, one click</div><span class="mut">Charged to the same payment. No details needed.</span></div></div></div>';
+  }
+  if(m.k==="ret"){
+    h='<div class="mk" aria-hidden="true">'+top("Returns")+'<div class="bd"><div class="citem"><div class="slot sm"></div><div><b>Product 01</b><div class="mut">Size M</div></div></div><b>What would you like to do?</b><div class="hl"><div class="choice on"><b>Exchange for another size</b><span class="mut">New size ships today. No extra cost.</span></div><div class="choice"><b>Return for a refund</b><span class="mut">Refund after we receive it</span></div></div><div class="btn">Continue</div></div></div>';
+  }
+  if(m.k==="mail"){
+    var body="";
+    if(m.qa){body='<div class="qa">'+m.qa.map(function(q){return '<div><b>'+esc(q[0])+'</b><br><span class="mut">'+esc(q[1])+'</span></div>'}).join("")+'</div>';}
+    else body='<span>'+esc(m.body)+'</span>';
+    var prod=m.p?'<div class="citem"><div class="slot sm"></div><div><b>Product 01</b><div class="mut">€64</div></div></div>':'';
+    var st=m.stars?'<div class="stars" style="font-size:20px">☆☆☆☆☆</div>':'';
+    h='<div class="mk mail" aria-hidden="true"><div class="top"><span>From: Your store</span><span class="subj">'+esc(m.subj)+'</span><span>'+esc(m.pre)+'</span></div><div class="bd"><b style="font-family:var(--display);font-stretch:80%;font-size:13px;text-transform:uppercase;letter-spacing:.04em">Your store</b><div class="hl" style="gap:7px"><h5>'+esc(m.h)+'</h5>'+body+'</div>'+prod+st+'<div class="btn">'+esc(m.btn)+'</div></div></div>';
+  }
+  return h;
+}
+
+/* ---------- logic ---------- */
+function gateText(g){
+  if(g.l)return "Holdout: 10 to 20% of the audience receives no message";
+  var ab="A/B test: even traffic split";
+  var ba="Before and after: two equal periods, risk stated";
+  if(S.traffic==="high")return ab;
+  if(S.traffic==="mid")return g.s<=2?ab:ba;
+  return ba;
+}
+function roundGate(r){
+  var cs=CELLS.filter(function(c){return c.r===r.n});
+  var set={};cs.forEach(function(c){set[gateText(c.gate).split(":")[0]]=1});
+  return Object.keys(set).join(", ");
+}
+function cellStatus(c){
+  if(c.need&&!S.ch[c.need])return{cls:"need",t:"Needs "+CHNAME[c.need].toLowerCase(),dim:true};
+  var r=ROUNDS[c.r-1];
+  if(c.fit.indexOf(S.p)>-1&&r.w.indexOf(S.p)>-1)return{cls:"pri",t:"Priority",dim:false};
+  if(c.fit.indexOf(S.p)>-1||(S.s&&c.fit.indexOf(S.s)>-1))return{cls:"fits",t:"Fits this store",dim:false};
+  return{cls:"low",t:"Lower priority",dim:true};
+}
+function phaseScore(ph){return PW[S.p][ph]+(S.s?PW[S.s][ph]*0.5:0)}
+function roundScore(r){
+  var sc=phaseScore(r.ph);
+  if(r.w.indexOf(S.p)>-1)sc+=1.5+(4-r.w.length)*0.25;
+  if(S.s&&r.w.indexOf(S.s)>-1)sc+=0.5;
+  var cs=CELLS.filter(function(c){return c.r===r.n});
+  var usable=cs.filter(function(c){return !(c.need&&!S.ch[c.need])}).length;
+  if(usable<2)sc-=6;
+  var list=cs.every(function(c){return c.gate.l});
+  if(S.traffic==="low"&&!list)sc-=1;
+  if(S.traffic==="low"&&list)sc+=0.5;
+  return sc;
+}
+
+/* ---------- render ---------- */
+function opt(name,type,val,label,desc,checked,disabled){
+  return '<label class="opt"><input type="'+type+'" name="'+name+'" id="'+name+"_"+val+'" value="'+val+'"'+(checked?" checked":"")+(disabled?" disabled":"")+'><span><b>'+esc(label)+'</b>'+(desc?'<i>'+esc(desc)+'</i>':'')+'</span></label>';
+}
+function renderForm(){
+  document.getElementById("ptypes").innerHTML=ORDER.map(function(k){return opt("ptype","radio",k,TYPES[k].n,TYPES[k].d,S.p===k)}).join("");
+  document.getElementById("stypes").innerHTML=opt("stype","radio","none","No second type","",!S.s)+ORDER.map(function(k){return opt("stype","radio",k,TYPES[k].n,"",S.s===k,S.p===k)}).join("");
+  document.getElementById("traffic").innerHTML=TRAFFIC.map(function(t){return opt("traffic","radio",t.k,t.n,"",S.traffic===t.k)}).join("");
+  document.getElementById("chans").innerHTML=CHANS.map(function(c){return opt("ch","checkbox",c.k,c.n,"",!!S.ch[c.k])}).join("");
+}
+function renderPlan(){
+  document.getElementById("plantitle").textContent=TYPES[S.p].n+(S.s?" with "+TYPES[S.s].n.toLowerCase():"");
+  document.getElementById("nowtype").textContent=TYPES[S.p].n;
+  document.getElementById("plantext").textContent=TYPES[S.p].plan;
+  var max=4.5;
+  document.getElementById("bars").innerHTML=PHASES.map(function(p){
+    var v=phaseScore(p.id);
+    var lv=v>=3?"High":v>=2?"Medium":"Low";
+    return '<div class="barrow"><span>'+p.n+'</span><span class="tr"><span class="fl" style="width:'+Math.round(v/max*100)+'%"></span></span><span class="lv">'+lv+'</span></div>';
+  }).join("");
+  var ranked=ROUNDS.slice().sort(function(a,b){return roundScore(b)-roundScore(a)||a.n-b.n});
+  var picked=[],surf={};
+  ranked.forEach(function(r){if(picked.length<3&&!surf[r.surface]&&roundScore(r)>0){picked.push(r);surf[r.surface]=1}});
+  document.getElementById("first").innerHTML=picked.map(function(r){
+    return '<a href="#round'+r.n+'"><span class="no">'+r.n+'</span><span class="nm">'+esc(r.v)+'</span><span class="gt">'+esc(roundGate(r))+' · '+esc(r.read)+'</span></a>';
+  }).join("");
+}
+function renderMap(){
+  document.getElementById("maprows").innerHTML=ROUNDS.map(function(r){
+    var ph=PHASES.filter(function(p){return p.id===r.ph})[0];
+    var wt=!r.w.length?'<span>Equal for all types</span>':r.w.length===4?'<span class="on">All four</span>':r.w.map(function(k){return '<span class="'+(k===S.p||k===S.s?"on":"")+'">'+TYPES[k].n+'</span>'}).join("");
+    return '<tr><td class="rn">'+r.n+'</td><td>'+ph.n+'</td><td>'+esc(r.v)+'</td><td>'+esc(r.ch)+'</td><td>'+esc(roundGate(r))+'</td><td>'+esc(r.read)+'</td><td>'+esc(r.guard)+'</td><td class="wt">'+wt+'</td></tr>';
+  }).join("");
+}
+function renderPhases(){
+  var out="";
+  PHASES.forEach(function(p,pi){
+    out+='<section class="phase" id="'+p.id+'"><div class="sec-head"><span class="eyebrow">Phase '+(pi+1)+' · Moves '+p.term.toLowerCase()+'</span><h2>'+p.n+'</h2>'+
+      '<div class="jobs"><div class="tile"><span class="eyebrow">Job</span><p>'+esc(p.job)+'</p></div><div class="tile"><span class="eyebrow">Focus</span><p>'+esc(p.hook)+'</p></div><div class="tile"><span class="eyebrow">Weight for this store</span><p id="pw_'+p.id+'"></p></div></div></div>';
+    ROUNDS.filter(function(r){return r.ph===p.id}).forEach(function(r){
+      out+='<div class="round" id="round'+r.n+'"><div class="round-head"><span class="n">'+r.n+'</span><h3>'+esc(r.v)+'</h3></div>'+
+        '<div class="round-meta"><span><b>Channel</b>'+esc(r.ch)+'</span><span><b>Primary read</b>'+esc(r.read)+'</span><span><b>Guardrail</b>'+esc(r.guard)+', net revenue</span></div>'+
+        '<p class="hold">'+esc(r.hold)+'</p><p class="follow" id="fu'+r.n+'"></p><div class="cells">';
+      CELLS.filter(function(c){return c.r===r.n}).forEach(function(c){
+        out+='<article class="card" id="cell'+c.r+c.c+'"><div class="cbar"><span class="badge">Round '+c.r+' · Cell '+c.c+'</span><span class="chan">'+esc(c.chan)+'</span><span class="status" data-st></span></div>'+
+          '<div class="stage">'+mock(c.mk)+'</div><div class="meta"><h4>'+esc(c.t)+'</h4>'+
+          '<div class="kv"><span class="k">Psychology lever</span><span class="v">'+esc(c.lever)+'</span></div>'+
+          '<div class="kv"><span class="k">Emotional triggers</span><div class="trig">'+c.emo.map(function(e){return '<span>'+esc(e)+'</span>'}).join("")+'</div></div>'+
+          '<div class="kv"><span class="k">Why this angle</span><span class="v m">'+esc(c.hyp)+'</span></div>'+
+          '<div class="kv"><span class="k">Test type</span><span class="v gate" data-gate></span></div>'+
+          '<div class="kv"><span class="k">Fits store types</span><div class="types-tag" data-types></div></div></div></article>';
+      });
+      out+='</div></div>';
+    });
+    out+='</section>';
+  });
+  document.getElementById("phases").innerHTML=out;
+}
+function updateCells(){
+  CELLS.forEach(function(c){
+    var el=document.getElementById("cell"+c.r+c.c);if(!el)return;
+    var st=cellStatus(c);
+    var s=el.querySelector("[data-st]");s.className="status "+st.cls;s.textContent=st.t;
+    el.classList.toggle("dim",st.dim);
+    el.querySelector("[data-gate]").textContent=gateText(c.gate);
+    el.querySelector("[data-types]").innerHTML=ORDER.filter(function(k){return c.fit.indexOf(k)>-1}).map(function(k){return '<span class="'+(k===S.p||k===S.s?"on":"")+'">'+TYPES[k].n+'</span>'}).join("");
+  });
+  PHASES.forEach(function(p){
+    var v=phaseScore(p.id),el=document.getElementById("pw_"+p.id);
+    if(el)el.textContent=(v>=3?"High":v>=2?"Medium":"Low")+" for "+TYPES[S.p].n.toLowerCase()+(S.s?" with "+TYPES[S.s].n.toLowerCase():"")+". Change the answers in the diagnostic to reweight.";
+  });
+  ROUNDS.forEach(function(r){
+    var el=document.getElementById("fu"+r.n);if(!el)return;
+    var parts=[];
+    if(r.follow)Object.keys(r.follow).forEach(function(k){if(S.ch[k])parts.push('<b>Next, '+CHNAME[k]+'</b> '+esc(r.follow[k]))});
+    el.innerHTML=parts.join("<br>");el.hidden=!parts.length;
+  });
+  document.body.classList.toggle("nodim",!S.dim);
+}
+function renderAll(){renderPlan();renderMap();updateCells();sset("gl_diag",JSON.stringify(S));}
+
+renderForm();renderPhases();renderAll();
+document.getElementById("dimtog").checked=S.dim;
+
+document.getElementById("diagform").addEventListener("change",function(e){
+  var t=e.target;
+  if(t.name==="ptype"){S.p=t.value;if(S.s===S.p)S.s=null;renderForm();}
+  if(t.name==="stype"){S.s=t.value==="none"?null:t.value;}
+  if(t.name==="traffic"){S.traffic=t.value;}
+  if(t.name==="ch"){S.ch[t.value]=t.checked;}
+  renderAll();
+  if(t.name==="ptype"){var n=document.getElementById("ptype_"+S.p);if(n)n.focus();}
+});
+document.getElementById("diagform").addEventListener("submit",function(e){e.preventDefault()});
+document.getElementById("dimtog").addEventListener("change",function(e){S.dim=e.target.checked;renderAll();});
+
+/* theme */
+var root=document.documentElement,lbl=document.getElementById("themelabel");
+function sysDark(){return window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches}
+function curDark(){var t=root.getAttribute("data-theme");return t?t==="dark":sysDark()}
+function setLabel(){lbl.textContent=curDark()?"Light mode":"Dark mode"}
+var st=sget("gl_theme");if(st==="dark"||st==="light")root.setAttribute("data-theme",st);
+setLabel();
+document.getElementById("themebtn").addEventListener("click",function(){var n=curDark()?"light":"dark";root.setAttribute("data-theme",n);sset("gl_theme",n);setLabel();});
+if(window.matchMedia)matchMedia("(prefers-color-scheme: dark)").addEventListener("change",setLabel);
+})();
+</script>
+
+</body>
+</html>
