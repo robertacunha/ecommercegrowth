@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ecommerce Growth Lab</title>
 <meta name="description" content="Growth lab by Simplificate: a store type diagnostic and 24 experiments across four phases for online stores.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,8 +98,9 @@ section{margin-top:64px;scroll-margin-top:60px}
 .opt input:disabled+span{opacity:.4;cursor:not-allowed}
 .opt:hover span{border-color:var(--accent)}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
-.pills .opt span{padding:8px 14px;display:block;font-size:14px}
+.pills{align-items:flex-start}.pills .opt span{padding:8px 14px;display:block;font-size:14px;height:auto}
 .note{font-size:13px;color:var(--muted)}
+.plan .con{margin:0}.plan .con b{font-weight:600}
 .example{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--mark);color:var(--mark-ink);padding:3px 8px;justify-self:start}
 
 .plan{display:grid;gap:18px;background:var(--ink);color:var(--bg);padding:22px 20px;position:sticky;top:64px}
@@ -214,7 +215,6 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
 </style>
 </head>
 <body>
-
 <div class="wrap">
 <header>
   <div class="tagrow">
@@ -223,13 +223,14 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
   </div>
   <span class="eyebrow">For online stores</span>
   <h1>Growth<span>Lab</span></h1>
-  <p class="lead">One system for any online store. A short diagnostic reads the store type, the channels it runs and its traffic, then weights 24 experiments across four phases of the revenue equation. Each experiment comes with the asset it tests, the lever behind it and the way it gets read.</p>
+  <p class="lead">One system for any online store. A short diagnostic reads the constraint the audit found, the store type, the channels it runs and its traffic, then weights 24 experiments across four phases of the revenue equation. Each experiment comes with the asset it tests, the lever behind it and the way it gets read.</p>
   <div class="chips">
     <span class="chip"><b>Store types</b>4</span>
     <span class="chip"><b>Phases</b>4</span>
     <span class="chip"><b>Rounds</b>8</span>
     <span class="chip"><b>Experiments</b>24</span>
-    <span class="chip"><b>Guardrail</b>Net revenue after returns</span>
+    <span class="chip"><b>Cycle</b>90 days</span>
+    <span class="chip"><b>Guardrails</b>Net revenue and margin</span>
   </div>
 </header>
 
@@ -244,14 +245,14 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
 <section id="approach">
   <div class="sec-head">
     <span class="eyebrow">Approach</span>
-    <h2>How I build a growth plan</h2>
-    <p>The same four steps for any online store. The experiments below are what the steps produce once the store type, the channels and the traffic are known.</p>
+    <h2>From the plan to the first rounds</h2>
+    <p>The same four steps for any online store. The lab is the execution step of the growth methodology: the experiments below are what the steps produce once the constraint, the store type, the channels and the traffic are known.</p>
   </div>
   <div class="grid4">
-    <div class="tile"><span class="eyebrow">01</span><strong>Start from the audit</strong><p>The lab begins once the account audit is done. Its findings set the store type, the channels and the traffic in the diagnostic below, and decide which rounds can run.</p></div>
-    <div class="tile"><span class="eyebrow">02</span><strong>Find the term that moves</strong><p>Net revenue is the product of five terms. Acquisition in paid social and Google Ads works on sessions. This lab works on the other four, one phase each, so every experiment names the term it is meant to move.</p></div>
+    <div class="tile"><span class="eyebrow">01</span><strong>Start from the audit and the plan</strong><p>The lab begins once the audit and the growth plan are done. Their findings set the constraint, the store type, the channels and the traffic in the diagnostic below, and decide which rounds can run.</p></div>
+    <div class="tile"><span class="eyebrow">02</span><strong>Start at the constraint</strong><p>Net revenue is the product of five terms. The audit compares each term with the store&rsquo;s own best month or segment, and the weakest one is the constraint, which gets the first rounds. Acquisition in paid social and Google Ads works on sessions. This lab works on the other four, one phase each.</p></div>
     <div class="tile"><span class="eyebrow">03</span><strong>Pick the lever, then build the asset</strong><p>Every experiment pairs one psychological lever with two emotional triggers and a concrete asset: a product page block, a cart message, an email. The asset follows the lever, so each cell tests a separate idea.</p></div>
-    <div class="tile"><span class="eyebrow">04</span><strong>Test one variable at a time</strong><p>Each round has one variable, one primary read and net revenue after returns as the guardrail. The traffic answer in the diagnostic decides whether a round runs as an A/B test, a holdout or a before and after read.</p></div>
+    <div class="tile"><span class="eyebrow">04</span><strong>Test one variable at a time</strong><p>Each round has one variable, one primary read and net revenue after returns as the guardrail. The traffic answer in the diagnostic decides whether a round runs as an A/B test, a holdout or a before and after read. A/B and holdout rounds are tests; before and after reads are pilots.</p></div>
   </div>
   <div class="eq" role="group" aria-label="Revenue equation">
     <div class="eq-row">
@@ -275,11 +276,15 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
   <div class="sec-head">
     <span class="eyebrow">Diagnostic</span>
     <h2>Read the store</h2>
-    <p>Four questions. The answers reorder the phases, pick the first rounds to run and mark every experiment below as a priority, a fit or a lower priority for this store.</p>
+    <p>Five questions. The answers reorder the phases, pick the first rounds to run and mark every experiment below as a priority, a fit or a lower priority for this store.</p>
   </div>
   <div class="diag">
     <form class="qs" id="diagform" autocomplete="off">
       <span class="example">Example store, change any answer</span>
+      <fieldset class="q">
+        <legend>Which term did the audit find weakest?<small>Read against the store&rsquo;s own best month or segment. The constraint gets the first rounds.</small></legend>
+        <div class="pills" id="weak"></div>
+      </fieldset>
       <fieldset class="q">
         <legend>What kind of store is it?<small>The type that describes most of its revenue.</small></legend>
         <div class="types" id="ptypes"></div>
@@ -300,9 +305,10 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
     </form>
     <aside class="plan" aria-live="polite">
       <div><span class="eyebrow">Plan for this store</span><h3 id="plantitle" style="margin-top:6px">Fit sensitive</h3></div>
+      <p id="plancon" class="con"></p>
       <p id="plantext"></p>
       <div class="bars" id="bars"></div>
-      <div><span class="eyebrow">Run these first, in parallel</span></div>
+      <div><span class="eyebrow">First 90 day cycle, run in parallel</span></div>
       <div class="first" id="first"></div>
       <label class="dimtog"><input type="checkbox" id="dimtog" checked> Fade experiments that are a lower priority</label>
     </aside>
@@ -319,7 +325,7 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
     <thead><tr><th>Round</th><th>Phase</th><th>Variable tested</th><th>Channel</th><th>Test type</th><th>Primary read</th><th>Round guardrail</th><th>Weighted for</th></tr></thead>
     <tbody id="maprows"></tbody>
   </table></div>
-  <p class="standing"><b>Standing guardrail on every round:</b> net revenue after returns and discounts, read once the return window for the test orders has closed.</p>
+  <p class="standing"><b>Standing guardrail on every round:</b> net revenue after returns and discounts, read once the return window for the test orders has closed. Order value rounds also guard contribution margin per order. At store level, MER (revenue divided by marketing spend) and break even ROAS (1 divided by contribution margin) are read monthly against the audit baseline, so a winner shows up in the whole account.</p>
 </section>
 
 <div id="phases"></div>
@@ -334,12 +340,13 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
     <div class="tile"><span class="eyebrow">Scheduling</span><strong>One test per page and audience</strong><p>Rounds in different channels run at the same time. Two rounds never share a page or an audience, because their results would mix. When the cells of one round sit on different pages, visitors are split once at the start, so each person sees one version only.</p></div>
     <div class="tile"><span class="eyebrow">Duration and sample</span><strong>Two weeks and a planned sample</strong><p>Every round covers at least two weekly cycles and has a required sample agreed before launch. It closes once each cell reaches that sample, within six weeks. When six weeks cannot reach it, the round runs as a before and after read with its risk written down.</p></div>
     <div class="tile"><span class="eyebrow">Owned channels</span><strong>Holdouts for email and SMS</strong><p>Email and SMS rounds keep a random 10 to 20% of the audience that receives nothing. The lift is measured against no message, which is the comparison that pays for the flow.</p></div>
-    <div class="tile"><span class="eyebrow">Reading</span><strong>Net revenue decides</strong><p>A cell that wins on its primary read and loses on net revenue after returns and discounts does not ship. Return rates are read once the return window for the test orders has closed.</p></div>
+    <div class="tile"><span class="eyebrow">Reading</span><strong>Net revenue and margin decide</strong><p>A cell that wins on its primary read and loses on net revenue after returns and discounts does not ship. In the order value rounds, a cell that lifts order value and cuts contribution margin per order does not ship either. Return rates are read once the return window for the test orders has closed.</p></div>
     <div class="tile"><span class="eyebrow">Next round</span><strong>The winner becomes the control</strong><p>The winning cell goes live for everyone and becomes the control for the next round in that phase. A tie keeps the current version and moves the round to the next variable.</p></div>
   </div>
+  <p class="standing"><b>90 day cycles:</b> the first three rounds form the first cycle. Each quarter the plan is reviewed on the round results, the KPI scorecard and MER, the budget split is rebalanced, and the next rounds are chosen. Once a year the strategy is reset from the growth goal.</p>
 </section>
 
-<footer>Growth lab by Simplificate. Acquisition sits outside this lab. Paid social runs in the ad lab, and Google Ads picks up the winners noted on each round.</footer>
+<footer>Growth lab by Simplificate. The lab is the e-commerce module of the execution step in the Simplificate growth methodology: the strategy chooses where to grow and how to win, the plan sets the objectives and the budget, and the lab runs the experiments after the click. Acquisition sits outside this lab. Paid social runs in the ad lab, and Google Ads picks up the winners noted on each round.</footer>
 </div>
 
 <script>
@@ -381,7 +388,7 @@ var ROUNDS=[
   {n:3,ph:"order",v:"Offer structure",ch:"Site",read:"Average order value",guard:"Conversion rate and margin per order",w:["gift","rep"],surface:"cart",
    hold:"Held constant: the product range and a comparable saving per order, around €5 to €6. Only the structure of the offer changes, and each visitor sees one structure.",
    follow:{paid:"The winning offer becomes the offer round in the ad lab, run as a Meta A/B test.",search:"Run the winning offer as a Merchant Center promotion, which shows in Shopping and Performance Max."}},
-  {n:4,ph:"order",v:"Where the add on appears",ch:"Site, post purchase, email",read:"Attach rate",guard:"Checkout completion rate",w:["rep","gift"],surface:"addon",
+  {n:4,ph:"order",v:"Where the add on appears",ch:"Site, post purchase, email",read:"Attach rate",guard:"Checkout completion rate and margin per order",w:["rep","gift"],surface:"addon",
    hold:"Held constant: the same add on product at the same price. Only the moment it is offered changes. Visitors are split into four groups, a control and one per placement, so nobody sees the offer twice."},
   {n:5,ph:"keep",v:"Second message in the abandoned checkout flow",ch:"Email",read:"Recovered revenue per abandoned checkout",guard:"Unsubscribe rate and discount cost",w:["con","fit"],surface:"abandon",
    hold:"Held constant: the first message, a plain reminder sent to every cell, plus channel and send times. Only the second message changes. A holdout receives no messages.",
@@ -490,7 +497,7 @@ var CELLS=[
 ];
 
 /* ---------- state ---------- */
-var S={p:"fit",s:"con",traffic:"mid",ch:{email:true,post:true,sms:false,paid:true,search:true},dim:true};
+var S={w:"keep",p:"fit",s:"con",traffic:"mid",ch:{email:true,post:true,sms:false,paid:true,search:true},dim:true};
 function sget(k){try{return localStorage.getItem(k)}catch(e){return null}}
 function sset(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 try{var saved=JSON.parse(sget("gl_diag")||"null");if(saved&&TYPES[saved.p]){S=Object.assign(S,saved);}}catch(e){}
@@ -545,9 +552,9 @@ function mock(m){
 
 /* ---------- logic ---------- */
 function gateText(g){
-  if(g.l)return "Holdout: 10 to 20% of the audience receives no message";
-  var ab="A/B test: even traffic split";
-  var ba="Before and after: two equal periods, risk stated";
+  if(g.l)return "Test, holdout: 10 to 20% of the audience receives no message";
+  var ab="Test, A/B: even traffic split";
+  var ba="Pilot, before and after: two equal periods, risk stated";
   if(S.traffic==="high")return ab;
   if(S.traffic==="mid")return g.s<=2?ab:ba;
   return ba;
@@ -561,10 +568,11 @@ function cellStatus(c){
   if(c.need&&!S.ch[c.need])return{cls:"need",t:"Needs "+CHNAME[c.need].toLowerCase(),dim:true};
   var r=ROUNDS[c.r-1];
   if(c.fit.indexOf(S.p)>-1&&r.w.indexOf(S.p)>-1)return{cls:"pri",t:"Priority",dim:false};
+  if(r.ph===S.w&&(c.fit.indexOf(S.p)>-1||(S.s&&c.fit.indexOf(S.s)>-1)))return{cls:"pri",t:"Priority",dim:false};
   if(c.fit.indexOf(S.p)>-1||(S.s&&c.fit.indexOf(S.s)>-1))return{cls:"fits",t:"Fits this store",dim:false};
   return{cls:"low",t:"Lower priority",dim:true};
 }
-function phaseScore(ph){return PW[S.p][ph]+(S.s?PW[S.s][ph]*0.5:0)}
+function phaseScore(ph){return PW[S.p][ph]+(S.s?PW[S.s][ph]*0.5:0)+(S.w===ph?2:0)}
 function roundScore(r){
   var sc=phaseScore(r.ph);
   if(r.w.indexOf(S.p)>-1)sc+=1.5+(4-r.w.length)*0.25;
@@ -583,6 +591,7 @@ function opt(name,type,val,label,desc,checked,disabled){
   return '<label class="opt"><input type="'+type+'" name="'+name+'" id="'+name+"_"+val+'" value="'+val+'"'+(checked?" checked":"")+(disabled?" disabled":"")+'><span><b>'+esc(label)+'</b>'+(desc?'<i>'+esc(desc)+'</i>':'')+'</span></label>';
 }
 function renderForm(){
+  document.getElementById("weak").innerHTML=PHASES.map(function(p){return opt("weak","radio",p.id,p.term,"",S.w===p.id)}).join("")+opt("weak","radio","none","Not clear yet","",!S.w);
   document.getElementById("ptypes").innerHTML=ORDER.map(function(k){return opt("ptype","radio",k,TYPES[k].n,TYPES[k].d,S.p===k)}).join("");
   document.getElementById("stypes").innerHTML=opt("stype","radio","none","No second type","",!S.s)+ORDER.map(function(k){return opt("stype","radio",k,TYPES[k].n,"",S.s===k,S.p===k)}).join("");
   document.getElementById("traffic").innerHTML=TRAFFIC.map(function(t){return opt("traffic","radio",t.k,t.n,"",S.traffic===t.k)}).join("");
@@ -591,8 +600,10 @@ function renderForm(){
 function renderPlan(){
   document.getElementById("plantitle").textContent=TYPES[S.p].n+(S.s?" with "+TYPES[S.s].n.toLowerCase():"");
   document.getElementById("nowtype").textContent=TYPES[S.p].n;
+  var wp=PHASES.filter(function(p){return p.id===S.w})[0];
+  document.getElementById("plancon").innerHTML=wp?"<b>Constraint from the audit:</b> "+esc(wp.term.toLowerCase())+". "+esc(wp.n)+" gets the extra weight and the first rounds.":"<b>No constraint named yet.</b> The store type sets the weights until the audit names one.";
   document.getElementById("plantext").textContent=TYPES[S.p].plan;
-  var max=4.5;
+  var max=6.5;
   document.getElementById("bars").innerHTML=PHASES.map(function(p){
     var v=phaseScore(p.id);
     var lv=v>=3?"High":v>=2?"Medium":"Low";
@@ -600,7 +611,9 @@ function renderPlan(){
   }).join("");
   var ranked=ROUNDS.slice().sort(function(a,b){return roundScore(b)-roundScore(a)||a.n-b.n});
   var picked=[],surf={};
-  ranked.forEach(function(r){if(picked.length<3&&!surf[r.surface]&&roundScore(r)>0){picked.push(r);surf[r.surface]=1}});
+  if(S.w){var wr=ranked.filter(function(r){return r.ph===S.w&&roundScore(r)>0})[0];if(wr){picked.push(wr);surf[wr.surface]=1}}
+  ranked.forEach(function(r){if(picked.length<3&&picked.indexOf(r)<0&&!surf[r.surface]&&roundScore(r)>0){picked.push(r);surf[r.surface]=1}});
+  picked.sort(function(a,b){return a.n-b.n});
   document.getElementById("first").innerHTML=picked.map(function(r){
     return '<a href="#round'+r.n+'"><span class="no">'+r.n+'</span><span class="nm">'+esc(r.v)+'</span><span class="gt">'+esc(roundGate(r))+' · '+esc(r.read)+'</span></a>';
   }).join("");
@@ -664,6 +677,7 @@ document.getElementById("dimtog").checked=S.dim;
 
 document.getElementById("diagform").addEventListener("change",function(e){
   var t=e.target;
+  if(t.name==="weak"){S.w=t.value==="none"?null:t.value;}
   if(t.name==="ptype"){S.p=t.value;if(S.s===S.p)S.s=null;renderForm();}
   if(t.name==="stype"){S.s=t.value==="none"?null:t.value;}
   if(t.name==="traffic"){S.traffic=t.value;}
