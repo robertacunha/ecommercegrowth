@@ -16,7 +16,7 @@
   --accent:#0E6655; --accent-fg:#FFFFFF; --soft:#D5E9E1; --mark:#F2C230; --mark-ink:#14171A;
   /* store mockups are pictures of a light shop page, same in both themes */
   --m-paper:#FFFFFF; --m-ink:#1A1C1E; --m-muted:#6B6F72; --m-line:#E4E5E1; --m-slot:#E8E4DB; --m-slot2:#D9D3C6;
-  --m-btn:#1A1C1E; --m-btn-fg:#FFFFFF; --m-star:#B97F00; --m-ok:#0E6655; --m-okbg:#E3F1EB; --m-frame:#C9CCC4;
+  --m-btn:#1A1C1E; --m-btn-fg:#FFFFFF; --m-star:#B97F00; --m-ok:#2A73B0; --m-okbg:#E1F1FB; --m-frame:#C9CCC4;
   --display:"Anybody","Arial Narrow",Impact,sans-serif;
   --body:"Public Sans","Helvetica Neue",Arial,sans-serif;
   --mono:"Spline Sans Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -219,16 +219,16 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
 /* look and feel aligned with the LinkedIn ABM Lab */
 :root{
   --bg:#F6F7FB; --surface:#FFFFFF; --surface2:#EEF1F8; --ink:#2A2E34; --muted:#6B7178; --line:#DFE3EE;
-  --accent:#0E6655; --accent-fg:#FFFFFF; --soft:#E1F1EB; --mark:#F2C230; --mark-ink:#14171A;
-  --p1:#A3D9C7; --p2:#5DB598; --p3:#1F8A6E; --p4:#0B4F40;
+  --accent:#2A73B0; --accent-fg:#FFFFFF; --soft:#E1F1FB; --mark:#F2C230; --mark-ink:#14171A;
+  --p1:#D3EBF9; --p2:#A9D6F2; --p3:#7DBFEA; --p4:#4FA2DC;
   --display:"Inter","Helvetica Neue",Arial,sans-serif; --body:"Inter","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#12141C; --surface:#1B1E29; --surface2:#252938; --ink:#ECEDEF; --muted:#A4A9B0; --line:#2E3242;
-  --accent:#5CC9AE; --accent-fg:#12141C; --soft:#173A31; --p1:#C2E8DA; --p2:#86CDB5; --p3:#4FB094; --p4:#238C70}}
+  --bg:#000000; --surface:#111214; --surface2:#1C1D21; --ink:#ECEDEF; --muted:#A4A9B0; --line:#2A2C32;
+  --accent:#9FD3F5; --accent-fg:#000000; --soft:#11293D; --p1:#DDF0FB; --p2:#B6DEF6; --p3:#8DC9EF; --p4:#62AEE3}}
 :root[data-theme="dark"]{
-  --bg:#12141C; --surface:#1B1E29; --surface2:#252938; --ink:#ECEDEF; --muted:#A4A9B0; --line:#2E3242;
-  --accent:#5CC9AE; --accent-fg:#12141C; --soft:#173A31; --p1:#C2E8DA; --p2:#86CDB5; --p3:#4FB094; --p4:#238C70}
+  --bg:#000000; --surface:#111214; --surface2:#1C1D21; --ink:#ECEDEF; --muted:#A4A9B0; --line:#2A2C32;
+  --accent:#9FD3F5; --accent-fg:#000000; --soft:#11293D; --p1:#DDF0FB; --p2:#B6DEF6; --p3:#8DC9EF; --p4:#62AEE3}
 body{font-variant-numeric:tabular-nums}
 h1,h2,h3,h4{font-stretch:100%;text-transform:none}
 h1{font-size:clamp(40px,6.4vw,78px);line-height:1;font-weight:800;letter-spacing:-.025em}
@@ -267,6 +267,8 @@ header::after{content:"";display:block;height:6px;border-radius:999px;margin-top
 .pills{align-items:flex-start}
 .pills .opt span{border-radius:999px;height:auto}
 .plan{border-radius:18px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .plan{background:#0E1F30;--bg:#ECEDEF;border:1px solid #1D3A55}}
+:root[data-theme="dark"] .plan{background:#0E1F30;--bg:#ECEDEF;border:1px solid #1D3A55}
 .barrow .tr{border-radius:999px;overflow:hidden}
 .first a{border-radius:12px}
 .first .no{font-stretch:100%;font-weight:800}
