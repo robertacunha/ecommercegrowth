@@ -7,7 +7,7 @@
 <meta name="description" content="Growth lab by Simplificate: a store type diagnostic and 24 experiments across four phases for online stores.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: lab notebook for a shop floor. Header, approach with the revenue equation, a live diagnostic,
    test map, four phases of experiment cards (drawn store mockups), method. */
@@ -215,14 +215,83 @@ footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);font-si
 </style>
 </head>
 <body>
+<style>
+/* look and feel aligned with the LinkedIn ABM Lab */
+:root{
+  --bg:#F6F7FB; --surface:#FFFFFF; --surface2:#EEF1F8; --ink:#2A2E34; --muted:#6B7178; --line:#DFE3EE;
+  --accent:#0E6655; --accent-fg:#FFFFFF; --soft:#E1F1EB; --mark:#F2C230; --mark-ink:#14171A;
+  --p1:#A3D9C7; --p2:#5DB598; --p3:#1F8A6E; --p4:#0B4F40;
+  --display:"Inter","Helvetica Neue",Arial,sans-serif; --body:"Inter","Helvetica Neue",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12141C; --surface:#1B1E29; --surface2:#252938; --ink:#ECEDEF; --muted:#A4A9B0; --line:#2E3242;
+  --accent:#5CC9AE; --accent-fg:#12141C; --soft:#173A31; --p1:#C2E8DA; --p2:#86CDB5; --p3:#4FB094; --p4:#238C70}}
+:root[data-theme="dark"]{
+  --bg:#12141C; --surface:#1B1E29; --surface2:#252938; --ink:#ECEDEF; --muted:#A4A9B0; --line:#2E3242;
+  --accent:#5CC9AE; --accent-fg:#12141C; --soft:#173A31; --p1:#C2E8DA; --p2:#86CDB5; --p3:#4FB094; --p4:#238C70}
+body{font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-stretch:100%;text-transform:none}
+h1{font-size:clamp(40px,6.4vw,78px);line-height:1;font-weight:800;letter-spacing:-.025em}
+h1 span{display:inline;color:var(--accent)}
+h2{font-size:clamp(25px,3.2vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+h3{font-size:clamp(18px,1.8vw,22px);font-weight:700;line-height:1.25;letter-spacing:-.005em}
+.phase>.sec-head h2{font-size:clamp(30px,4.4vw,52px);letter-spacing:-.02em}
+.eyebrow{font-family:var(--body);font-size:12px;letter-spacing:.16em;font-weight:700;color:var(--ink)}
+.eyebrow::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px}
+.tile .eyebrow{color:var(--accent)}
+.tile .eyebrow::before,.plan .eyebrow::before,.example::before{display:none}
+.lead{font-size:17px;max-width:70ch}
+header{gap:16px}
+header::after{content:"";display:block;height:6px;border-radius:999px;margin-top:6px;background:linear-gradient(90deg,var(--p1) 0 25%,var(--p2) 0 50%,var(--p3) 0 75%,var(--p4) 0)}
+.tagrow{gap:10px 12px}
+.byline{font-size:13px;font-weight:700;letter-spacing:.04em;padding:4px 12px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.chip{border:1.5px solid var(--line);border-radius:999px;background:var(--surface);font-size:13.5px}
+.chip b{font-family:var(--body);font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:var(--accent)}
+.sticky{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-top:0;border-bottom:1.5px solid var(--line)}
+.jump{font-family:var(--body);font-size:13.5px;letter-spacing:0;text-transform:none;font-weight:600;gap:6px;padding-block:10px}
+.jump a{padding:6px 11px;border-radius:999px;background:var(--surface2)}
+.jump a:hover{background:var(--line);color:var(--ink)}
+.jump .now b{border-radius:999px;padding:3px 10px;font-weight:600}
+.tile,.eq,.qs,.tbl,.card,.cc{border-radius:18px;border-width:1.5px}
+.tile{padding:18px}
+.grid4>.tile{border-top:6px solid var(--sc,var(--accent))}
+.grid4>.tile:nth-child(1){--sc:var(--p1)}.grid4>.tile:nth-child(2){--sc:var(--p2)}.grid4>.tile:nth-child(3){--sc:var(--p3)}.grid4>.tile:nth-child(4){--sc:var(--p4)}
+.card{overflow:hidden}
+.term .t{font-stretch:100%;font-weight:800;font-size:20px;text-transform:none;letter-spacing:-.01em}
+.term .ph,.round-meta span,.trig span,.types-tag span,td.wt span,.status,.chan,.badge,.tier,.optional,.example{border-radius:999px}
+.term .ph{font-family:var(--body);font-size:12px;letter-spacing:0;text-transform:none;font-weight:600;padding:4px 10px}
+.op{font-weight:800}
+.opt span{border-radius:12px;border-width:1.5px}
+.pills{align-items:flex-start}
+.pills .opt span{border-radius:999px;height:auto}
+.plan{border-radius:18px}
+.barrow .tr{border-radius:999px;overflow:hidden}
+.first a{border-radius:12px}
+.first .no{font-stretch:100%;font-weight:800}
+th{font-family:var(--body);font-size:11.5px;letter-spacing:.14em;font-weight:700}
+td.rn{font-stretch:100%;font-weight:800;font-size:22px}
+.round-head .n{font-stretch:100%;font-weight:800;font-size:56px;letter-spacing:-.03em}
+.round-head h3{max-width:40ch}
+.round-meta span b,.kv .k,.cc span:first-child{font-family:var(--body);font-weight:700;letter-spacing:.1em}
+.meta h4{font-weight:700}
+.mk{border-radius:12px;overflow:hidden}
+.mk .top b,.mail h5{font-stretch:100%;text-transform:none;letter-spacing:-.01em}
+.btn{border-radius:999px}
+.hl{border-radius:8px}
+.hl::after{border-radius:999px}
+footer{border-top-width:1.5px}
+.card.dim{opacity:.6}
+</style>
 <div class="wrap">
 <header>
   <div class="tagrow">
     <span class="byline">Growth lab by Simplificate</span>
+    <span class="kicker">For B2C online stores</span>
     <button class="themebtn" id="themebtn" type="button"><span class="ti" aria-hidden="true"></span><span id="themelabel">Dark mode</span></button>
   </div>
-  <span class="eyebrow">For online stores</span>
-  <h1>Growth<span>Lab</span></h1>
+  <h1><span>Growth</span> Lab</h1>
   <p class="lead">One system for any online store. A short diagnostic reads the constraint the audit found, the store type, the channels it runs and its traffic, then weights 24 experiments across four phases of the revenue equation. Each experiment comes with the asset it tests, the lever behind it and the way it gets read.</p>
   <div class="chips">
     <span class="chip"><b>Store types</b>4</span>
